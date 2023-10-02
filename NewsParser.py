@@ -9,7 +9,7 @@ import requests
 from fake_useragent import UserAgent
 from enum import Enum
 import json
-from unicodedata import normalize
+from functools import reduce
 
 
 class TopicsOfNewsEnum(Enum):
@@ -55,7 +55,6 @@ class Parser:
 			self.__newsPublished = self.__getItemFromFeedUsingPath(self.__pathToPublished, index)
 			self.__newsTitle = self.__getItemFromFeedUsingPath(self.__pathToTitle, index)
 			self.__newsArticle = Parser.__getArticleFromURL(self.__newsPageURL)
-			#Parser.__outputArticleToConsole(self.__newsTitle, self.__newsArticle, self.__newsPublished, self.__newsPageURL)
 			resultJSON.append({
 				"title": self.__newsTitle,
 				"article": self.__newsArticle,
@@ -72,11 +71,8 @@ class Parser:
 	def __getArticleFromURL(url):
 		textHTML = requests.get(url, headers={'User-Agent': UserAgent().chrome}).text
 		bs = BS(textHTML, 'html.parser')
-		allTagsFromHTML = bs.find_all(["p"])
-		article = ""
-		for tag in allTagsFromHTML:
-			if tag.text != '':
-				article += tag.text
+		allTagsFromHTML = bs.find_all(["p"]) # мега пакость
+		article = reduce(lambda a, b: a.text + ' ' + b.text, allTagsFromHTML)
 		return article
 
 	@staticmethod
