@@ -1,26 +1,43 @@
-from sqlalchemy import create_engine
+from models import User, News, UserAndTopic, Topic, session, metaData
 import time
 from NewsParser import Parser, TopicsOfNewsEnum
 from datetime import datetime
 import multiprocessing
+from sqlalchemy import create_engine
 
 
-engine = create_engine("postgresql+psycopg2://postgres:admin@localhost/NewsBot")
-engine.connect()
+def loadNews():
+	news = {}
+	for topic in TopicsOfNewsEnum:
+		parser = Parser(topic)
+		news[topic.value] = parser.getNews()
+	for topic in news.keys():
+		newsOnTheTopic = news.get(topic)
+		if newsOnTheTopic is not None:
+			for dataset in newsOnTheTopic:
+				topicRecord = session.query(Topic).filter(Topic.topic.contains(topic)).first()
+				session.add(
+					News(
+						topic=topicRecord.id,
+						title=dataset["title"],
+						article=dataset["article"],
+						published=dataset["published"],
+						url=dataset["link"]
+					)
+				)
+	session.commit()
 
+"""
+session.add(Topic(topic='World'))
+session.add(Topic(topic='Moscow'))
+session.add(Topic(topic='Politics'))
+session.add(Topic(topic='Society'))
+session.add(Topic(topic='Incidents'))
+session.add(Topic(topic='ScienceAndTechnology'))
+session.add(Topic(topic='ShowBusiness'))
+session.add(Topic(topic='Military'))
+session.add(Topic(topic='Games'))
+session.add(Topic(topic='Analytics'))
+session.commit()
 
-
-parserSocietyNews = Parser(TopicsOfNewsEnum.SOCIETY_NEWS)
-parserEconomicsNews = Parser(TopicsOfNewsEnum.ECONOMICS_NEWS)
-parserPoliticsNews = Parser(TopicsOfNewsEnum.POLITICS_NEWS)
-parserIncidentNews = Parser(TopicsOfNewsEnum.INCIDENT_NEWS)
-parserSportNews = Parser(TopicsOfNewsEnum.SPORT_NEWS)
-
-
-print(parserSocietyNews.getNews())
-print(parserEconomicsNews.getNews())
-print(parserPoliticsNews.getNews())
-print(parserIncidentNews.getNews())
-print(parserSportNews.getNews())
-
-
+"""
