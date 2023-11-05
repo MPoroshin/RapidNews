@@ -2,7 +2,6 @@
   "TOKEN":"",
   "messages": {
     "startMessage": "Привет, я буду отправлять тебе новости по заданным настройкам",
-    "allCommandsMessage": "Привет, у меня есть такие команды:\n/help - Посмотреть список команд\n/add_topic - Добавить тему в список тем получаемых новостей\n/delete_topic - Удалить тему из списка тем получаемых новостей\n/change_time - Изменить временной промежуток, в который отправляются новости (по умолчанию 0-23)",
     "answerToTypeTopicToAdd": "Введите добавляемую тему:",
     "answerToTypeTopicToDelete": "Введите удаляемую тему:",
     "topicHasBeenAdded": "Тема добавлена",
@@ -12,7 +11,6 @@
     "topicHasBeenDeletedEarlier": "Тема уже удалена ранее",
     "answerToTypeTimeBorder": "Введите временной промежуток в формате 0-23:",
     "timeBorderHasBeenChanged": "Временной промежуток изменен",
-    "timeBorderHasBeenTypedNotCorrectly": "Временной промежуток изменен",
     "timePeriodIsChanged": "Временной промежуток изменен",
     "timePeriodIsNotValid": "Временной промежуток введен неправильно"
   }
