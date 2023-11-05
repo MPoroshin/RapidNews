@@ -10,9 +10,6 @@ engine = create_engine("sqlite:///RapidNews.db")
 con = engine.connect()
 metaData = Base.metadata
 metaData.bind = engine
-#metaData.create_all(engine)
-Session = sessionmaker(bind=engine)
-session = Session()
 
 
 class User(Base):
@@ -26,6 +23,7 @@ class Topic(Base):
 	__tablename__ = "Topic"
 	id = Column("id", Integer, primary_key=True, autoincrement=True)
 	topic = Column("topic", String)
+
 
 class News(Base):
 	__tablename__ = "News"
@@ -45,5 +43,5 @@ class UserAndTopic(Base):
 	lastSent = Column("lastSent", String)
 
 
-
+# metaData.create_all(engine)
 

@@ -1,12 +1,13 @@
-from models import User, News, UserAndTopic, Topic, session, metaData
-import time
+from sqlalchemy.orm import sessionmaker
+from models import News, Topic, engine
 from NewsParser import Parser, TopicsOfNewsEnum
-from datetime import datetime
-import multiprocessing
-from sqlalchemy import create_engine
 
 
-def loadNews():
+Session = sessionmaker(bind=engine)
+session = Session()
+
+
+async def loadNews():
 	news = {}
 	for topic in TopicsOfNewsEnum:
 		parser = Parser(topic)
@@ -26,8 +27,8 @@ def loadNews():
 					)
 				)
 	session.commit()
-
 """
+
 session.add(Topic(topic='World'))
 session.add(Topic(topic='Moscow'))
 session.add(Topic(topic='Politics'))

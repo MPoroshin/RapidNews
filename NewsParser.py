@@ -1,15 +1,10 @@
-import re
-import html
 import feedparser
-import time
 from datetime import datetime
-from random import choice
 from bs4 import BeautifulSoup as BS
 import requests
 from fake_useragent import UserAgent
 from enum import Enum
 import json
-from functools import reduce
 
 
 class TopicsOfNewsEnum(Enum):
