@@ -39,7 +39,7 @@ class RapidNewsBot:
                 User(
                     id=userId,
                     leftPeriodBorder=0,
-                    rightPeriodBorder=23
+                    rightPeriodBorder=24
                 )
             )
             for topic in RapidNewsBot.session.query(Topic).all():
@@ -194,7 +194,7 @@ class RapidNewsBot:
         if re.match(r"^(\d\d?)-(\d\d?)$", periodBorders):
             leftPeriodBorder, rightPeriodBorder = map(int, periodBorders.split("-"))
             if (0 <= leftPeriodBorder < 24) and\
-                (0 <= rightPeriodBorder < 24) and\
+                (0 < rightPeriodBorder <= 24) and\
                     (leftPeriodBorder < rightPeriodBorder):
                 RapidNewsBot.session.query(User).filter(
                     User.id.contains(userId)).update(
