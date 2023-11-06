@@ -36,8 +36,18 @@ class RapidNewsBot:
         user = RapidNewsBot.session.query(User).filter(User.id.contains(userId)).first()
         if user is None:
             RapidNewsBot.session.add(
-                User(id=userId)
+                User(
+                    id=userId,
+                    leftPeriodBorder=0,
+                    rightPeriodBorder=23
+                )
             )
+            for topic in RapidNewsBot.session.query(Topic).all():
+                RapidNewsBot.session.add(UserAndTopic(
+                    user=userId,
+                    topic=topic.id,
+                    lastSent=datetime.now().strftime('%a, %d %b %Y %H:%M:%S %z'),
+                ))
             RapidNewsBot.session.commit()
 
     @staticmethod
