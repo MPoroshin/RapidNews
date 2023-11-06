@@ -9,7 +9,7 @@
     "topicHasBeenTypedNotCorrectly": "Тема введена неправильно",
     "topicHasBeenDeleted": "Тема удалена",
     "topicHasBeenDeletedEarlier": "Тема уже удалена ранее",
-    "answerToTypeTimeBorder": "Введите временной промежуток в формате 0-23:",
+    "answerToTypeTimeBorder": "Введите временной промежуток в формате 0-24:",
     "timeBorderHasBeenChanged": "Временной промежуток изменен",
     "timePeriodIsChanged": "Временной промежуток изменен",
     "timePeriodIsNotValid": "Временной промежуток введен неправильно"
