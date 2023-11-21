@@ -9,7 +9,7 @@ def main():
         prcs.append(prc)
 
     for prc in prcs:
-        prc.join()
+        prc.join() #миша реально жопа
 
 
 def import_module(module):
