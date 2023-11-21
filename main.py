@@ -12,7 +12,7 @@ def main():
         prc.join() #миша реально жопа
 
 
-def import_module(module): #жопа жопа
+def import_module(module): #жопа жопа 2
     import sys
     sys.modules[module] = __import__(module)
 
